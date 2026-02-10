@@ -3,16 +3,14 @@ from constants import *
 from column import Column
 from playground import PlayGround
 from piece import Piece
-from rules import Rules
-
+from game import Game
+import os
 def main():
     pygame.init()
     pygame.font.init()
     font = pygame.font.Font(None, 36)
-
     clock = pygame.time.Clock()
     dt = 0.0
-    time = 0.0
     moves = 0
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption("Hanoi T SPEEDRUN")
@@ -25,30 +23,26 @@ def main():
     Column.containers = (columns, drawable)
     PlayGround.containers = (updatable)
     Piece.containers = (drawable, pieces)
-    
 
-    #first = Column(SCREEN_WIDTH/6 - COLUMN_WIDTH/2, SCREEN_HEIGHT*0.9, COLUMN_WIDTH, COLUMN_HEIGHT)
-    #second = Column(SCREEN_WIDTH/2 - COLUMN_WIDTH/2, SCREEN_HEIGHT*0.9, COLUMN_WIDTH, COLUMN_HEIGHT)
-    #third = Column(SCREEN_WIDTH*5/6 - COLUMN_WIDTH/2, SCREEN_HEIGHT*0.9, COLUMN_WIDTH, COLUMN_HEIGHT)
-
-    playground = PlayGround(4, pieces)
-    rules = Rules()
-
+    game = Game()
+    playground = PlayGround(3, pieces, game)
     while True:
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:
                 return
             elif event.type == pygame.KEYDOWN:
-                if event.unicode == "1" and playground.lock_one == False:
+                if event.unicode == "1" and playground.lock_one == False and game.won == False:
                     playground.update()
                     playground.lock_one = True
-                if event.unicode == "2" and playground.lock_two == False:
+                if event.unicode == "2" and playground.lock_two == False and game.won == False:
                     playground.update()
                     playground.lock_two = True
-                if event.unicode == "3" and playground.lock_three == False:
+                if event.unicode == "3" and playground.lock_three == False and game.won == False:
                     playground.update()
                     playground.lock_three = True
+                if event.unicode == "r":
+                    reset_game(game, playground)
             elif event.type == pygame.KEYUP:
                 if event.unicode == "1" and playground.lock_one == True:
                     playground.lock_one = False
@@ -61,7 +55,7 @@ def main():
         for item in drawable:
             item.draw(screen)
 
-        score = font.render(str(round(time, 3)), True, "white")
+        score = font.render(str(round(playground.time, 3)), True, "white")
         moves = font.render("Moves: " + str(playground.moves), True, "white")
         screen.blit(score, (10,10))
         screen.blit(moves, (200,10))
@@ -69,12 +63,19 @@ def main():
         pygame.display.flip()
 
         dt = clock.tick(60) / 1000
-        if playground.capacity > (len(playground.second) or len(playground.third)):
-            rules.won = True
-            time += dt
-        #print(round(time, 3))
-
+        if game.started == True and game.won == False:
+            playground.time += dt
+            if playground.capacity == (len(playground.second) or len(playground.third)):
+                game.won = True
+                game.started = False
     
+def reset_game(game, playground):
+    playground.time = 0.0
+    game.started = False
+    game.won = False
+    playground.moves = 0
+    playground.create_pieces()
+
 
 if __name__ == "__main__":
     main()
