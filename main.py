@@ -31,25 +31,7 @@ def main():
         for event in events:
             if event.type == pygame.QUIT:
                 return
-            elif event.type == pygame.KEYDOWN:
-                if event.unicode == "1" and playground.lock_one == False and game.won == False:
-                    playground.update()
-                    playground.lock_one = True
-                if event.unicode == "2" and playground.lock_two == False and game.won == False:
-                    playground.update()
-                    playground.lock_two = True
-                if event.unicode == "3" and playground.lock_three == False and game.won == False:
-                    playground.update()
-                    playground.lock_three = True
-                if event.unicode == "r":
-                    reset_game(game, playground)
-            elif event.type == pygame.KEYUP:
-                if event.unicode == "1" and playground.lock_one == True:
-                    playground.lock_one = False
-                if event.unicode == "2" and playground.lock_two == True:
-                    playground.lock_two = False
-                if event.unicode == "3" and playground.lock_three == True:
-                    playground.lock_three = False
+            get_event(event, playground, game)
         screen.fill((50,50,50))
 
         for item in drawable:
@@ -74,7 +56,35 @@ def reset_game(game, playground):
     game.started = False
     game.won = False
     playground.moves = 0
+    playground.pivot = 0
     playground.create_pieces()
+
+def get_event(event, playground, game):
+    if event.type == pygame.KEYDOWN:
+        if event.unicode == "q" and playground.lock_one == False and game.won == False:
+            playground.update()
+            playground.lock_one = True
+        if event.unicode == "w" and playground.lock_two == False and game.won == False:
+            playground.update()
+            playground.lock_two = True
+        if event.unicode == "e" and playground.lock_three == False and game.won == False:
+            playground.update()
+            playground.lock_three = True
+        if event.unicode == "r":
+            reset_game(game, playground)
+        if event.unicode in ("3", "4", "5", "5", "6", "7", "8", "9", "0") and game.started == False:
+            if event.unicode == "0":
+                event.unicode = "10"
+            playground.capacity = int(event.unicode)
+            reset_game(game, playground)
+            playground.create_pieces()
+    elif event.type == pygame.KEYUP:
+        if event.unicode == "q" and playground.lock_one == True:
+            playground.lock_one = False
+        if event.unicode == "w" and playground.lock_two == True:
+            playground.lock_two = False
+        if event.unicode == "e" and playground.lock_three == True:
+            playground.lock_three = False
 
 
 if __name__ == "__main__":

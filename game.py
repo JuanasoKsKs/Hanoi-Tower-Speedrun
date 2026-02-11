@@ -17,6 +17,7 @@ class Game():
         self.won = False
         self.records = {}
         self.started = False
+        self.get_records()
 
     def draw_instructions():
         return
@@ -29,14 +30,14 @@ class Game():
                 number_of_pieces = categorie[0]
                 places = categorie.split("\n")
                 i = 0
-                self.records[str(number_of_pieces)] = {}
+                self.records[int(number_of_pieces)] = {}
                 for place in places:
                     i += 1
                     primero = place.find("[")
                     ultimo = place.find("]")
                     texto = place[primero + 1 : ultimo]
                     valores = texto.split(", ")
-                    self.records[str(number_of_pieces)][i] = [int(valores[0]), int(valores[1])]
+                    self.records[int(number_of_pieces)][i] = [int(valores[0]), int(valores[1])]
 
             return self.records
 
