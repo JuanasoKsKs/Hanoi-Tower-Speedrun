@@ -42,11 +42,11 @@ class PlayGround(pygame.sprite.Sprite):
     def update(self):
         self.game.started = True
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_q] and self.lock_one == False:
+        if keys[pygame.K_LEFT] and self.lock_one == False:
             self.action(self.first, 1)
-        if keys[pygame.K_w] and self.lock_two == False:
+        if keys[pygame.K_DOWN] and self.lock_two == False:
             self.action(self.second, 2)
-        if keys[pygame.K_e] and self.lock_three == False:
+        if keys[pygame.K_RIGHT] and self.lock_three == False:
             self.action(self.third, 3)
 
     def action(self, lista, place):
@@ -56,7 +56,7 @@ class PlayGround(pygame.sprite.Sprite):
                 self.pivot = lista.pop()
                 for piece in self.pieces:
                     if piece.size == self.pivot:
-                        piece.position.y = SCREEN_HEIGHT * 0.25
+                        piece.position.y = SCREEN_HEIGHT * 0.28
         elif len(lista) == 0 or lista[-1] > self.pivot:
             lista.append(self.pivot)
             for piece in self.pieces:
