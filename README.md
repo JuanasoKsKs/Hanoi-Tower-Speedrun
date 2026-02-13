@@ -18,7 +18,7 @@ Objective of the game is to stack all the pieces from one side to another making
 You have to use the LEFT, DOWN and RIGHT arrows to move between columns
 A move is divided in 2 steps:
 1. select the TOP piece from a column
-2. select the column where you want to move it
+2. select the column where you want to move it.
 If you want to move another piece you first need to release the one you are holding.
 
 You can select the # of pieces from 3 to 10 and reset the game at any time
@@ -26,8 +26,8 @@ You can select the # of pieces from 3 to 10 and reset the game at any time
 ## Getting Started
 
 ### Prerequisites
--Python3
--pygame
+- Python3
+- pygame
 
 ### Installation
 1. Clone repository:
@@ -39,7 +39,7 @@ git clone https://github.com/JuanasoKsKs/Hanoi-Tower-Speedrun
 ```
 pip install pygame
 ```
-if you don't have pip install it as well
+if you don't have pip, install it as well
 
 3. Execute 'python3 main.py' in the root directory of the repo to start
 ```
