@@ -79,7 +79,7 @@ def display_stats(playground, game, screen, font):
     screen.blit(leyend_place, (SCREEN_WIDTH - 300, 10))
     for i in scores:
         place = scores[i]
-        if place[0] == 10000:
+        if place[1] == 0:
             continue
         screen.blit(font.render(f"{i}°-->", True, base_color), (SCREEN_WIDTH -300, 25 * i + 10))
         screen.blit(font.render(f"{place[0]}", True, base_color), (SCREEN_WIDTH -200, 25 * i + 10))
