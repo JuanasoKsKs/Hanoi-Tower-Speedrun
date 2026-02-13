@@ -100,7 +100,7 @@ def display_instructions(playground, game, screen, font):
         screen.blit(font.render('(7)', True, base_color), (300, 75))
         screen.blit(font.render('(8)', True, base_color), (350, 75))
         screen.blit(font.render('(9)', True, base_color), (400, 75))
-        screen.blit(font.render('10-(0)', True, base_color), (450, 75))0
+        screen.blit(font.render('10-(0)', True, base_color), (450, 75))
     
     screen.blit(font.render(f"Perfect Moves for {playground.capacity} Pieces", True, "yellow"), (SCREEN_WIDTH/2, 10))
     screen.blit(font.render(f"{2**playground.capacity - 1}", True, "yellow"), (SCREEN_WIDTH/2 + 150, 35))
@@ -118,7 +118,6 @@ def reset_game(game, playground):
 def get_event(event, playground, game):
     if event.type == pygame.KEYDOWN:
         if event.scancode == 80 and playground.lock_one == False and game.won == False:
-            print("aqui")
             playground.update()
             playground.lock_one = True
         if event.scancode == 81 and playground.lock_two == False and game.won == False:
