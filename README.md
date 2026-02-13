@@ -2,7 +2,8 @@
 
 This is a speedrun version of the _Hanoi Tower_ minigame
 
-![simulation]()
+![HanoiSimulation](https://github.com/user-attachments/assets/a80d8d57-e348-4f0a-ab83-b158ed5adb16)
+
 
 ## Goal
 
